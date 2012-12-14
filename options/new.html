@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Linkbucks Buster Options</title>
+  <link href="css/jquery-ui-1.9.2.custom.min.css" rel="stylesheet">
+  <link href="css/options.css" rel="stylesheet">
+  <script src="js/jquery.js"></script>
+  <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+  <script src="js/options.js"></script>
+</head>
+<body>
+
+<div id="top">
+  <img src="../logo_48.png">
+  <h1>Linkbucks Buster Options</h1>
+</div>
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Custom Blacklist</a></li>
+    <li><a href="#tabs-2">About</a></li>
+  </ul>
+  <div id="tabs-1">
+    <div>
+      <input type="text" value="" id="newFilter" style="width:500px">
+      <button class="button" id="add">Add</button>
+    </div>
+    <div style="margin-top:5px;">
+      <select id="userFiltersBox" size="20" multiple="" style="width: 504px; background: white;"></select>
+      <button class="button" id="delete">Delete Selected</button>
+    </div>
+  </div>
+  <div id="tabs-2">
+    <p>Linkbucks Buster is a small tool to block websites using linkbucks. It will analytic the website , take you to the target website.</p>
+    <br/>
+    <p>Linkbucks Buster have added some websites to the blacklist.To add more:</p>
+    <ul style="list-style:none;">
+        <li> * open the website using linkbucks</li>
+        <li> * right click, open context menu, choose "Bust This Linkbucks Site"</li>
+        <li> * refresh, watch the effect</li>
+    </ul>
+    <br/>
+    <p>you can edit the black list in the options page. You will see it in chrome extensions page.</p>
+  </div>
+</div>
+
+</body>
+</html>
