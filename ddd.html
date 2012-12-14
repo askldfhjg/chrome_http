@@ -13,9 +13,9 @@ function tree(obj, id) {
 	var target = document.createElement("div");
 	target.id = id+"_child";
 	document.getElementById(id).appendChild(target);
-	/*if(target.nextElementSibling) {
-		target = target.nextElementSibling;
-	}*/
+	var parent = document.getElementById(id).parentNode.style.marginRight;
+	parent = Number(parent.substr(0, parent.length - 2)) + 30;
+	target.style.marginLeft = parent + "px";
 	if(id != "root") {
 		var tmp = id.split("_");
 		for(i=0;i<tmp.length;i++) {
@@ -49,7 +49,7 @@ function createNode(id, name, value) {
 	var pic = document.createElement("div");
 	pic.setAttribute("style", "height: 0px;width: 0px;border: 6px solid #000;float: left;margin-top: 6px;margin-right: 4px;");
 	pic.style.borderColor = "transparent transparent transparent transparent";
-
+	pic.id = name+"_pic";
 	var nameNode = document.createElement("span");
 	nameNode.style.color = "#881391";
 	nameNode.innerText = name+": ";
@@ -58,8 +58,6 @@ function createNode(id, name, value) {
 	if(typeof(value) == "string") {
 		valueNode.style.color = "#ff0000";
 		valueNode.innerText = '"'+value+'"';
-		//pic.style.borderColor = "#7c7c7c transparent transparent transparent";
-		//pic.style.borderTopWidth = "9px";
 	}
 	else if(typeof(value) == "number") {
 		valueNode.style.color = "#0000ff";
@@ -104,6 +102,10 @@ function getJson(node, obj) {
 		var t = document.getElementById(name);
 		if(t.childNodes.length >3 && child != null && child.style.display != "none") {
 			child.style.display = "none";
+			//var pic = document.getElementById(name+"_pic");
+			//pic.style.borderColor = "transparent transparent transparent #7c7c7c";
+			//pic.style.borderLeftWidth = "9px";
+			//pic.style.marginRight = "1px"
 			//t.removeChild(child);
 		}
 		else {
@@ -114,6 +116,10 @@ function getJson(node, obj) {
 			else {
 				child.style.display = "block";
 			}
+			//var pic = document.getElementById(name+"_pic");
+			//pic.style.borderColor = "#7c7c7c transparent transparent transparent";
+			//pic.style.borderTopWidth = "6px";
+			//pic.style.marginRight = "4px"
 		}
 	},false);
 	tree(obj, "root");
