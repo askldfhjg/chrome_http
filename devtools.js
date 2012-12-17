@@ -23,7 +23,7 @@ var page_getProperties = function() {
       });
 });*/
 
-chrome.devtools.panels.create("test", "logo_48.png", "net.html", function(){});
+chrome.devtools.panels.create("test", "logo_48.png", "net/net.html", function(){});
 
 chrome.devtools.panels.elements.createSidebarPane(
     "jQuery Properties",
