@@ -36,11 +36,14 @@ chrome.devtools.network.onRequestFinished.addListener(function(request) {
 		count++;
 		main.appendChild(up);
 		main.appendChild(div);
+		aal("1");
 		body.appendChild(main);
+		aal("2");
 	    request.getContent(function(content, send){
 	    	var main = document.getElementById("main_"+count2);
 			var dd = document.createElement("div");
 			dd.innerText = content;
+			dd.style.display="none";
 			dd.id="detail_"+count2;
 			main.appendChild(dd);
 			main.appendChild(document.createElement("hr"));
@@ -50,4 +53,8 @@ chrome.devtools.network.onRequestFinished.addListener(function(request) {
 		});
 	}
 });
+
+function aal(o) {
+	chrome.experimental.devtools.console.addMessage(chrome.experimental.devtools.console.Severity.Warning, o);
+}
 
