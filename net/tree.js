@@ -1,36 +1,9 @@
+var objLists = {};
 function isEmptyObject(O){
 	for (var x in O) {
 		return false;
 	}
 	return true;
-}
-function tree(obj, id) {
-	var target = document.createElement("div");
-	target.id = id+"_child";
-	document.getElementById(id).appendChild(target);
-	if(id != "root") {
-		var parent = document.getElementById(id).parentNode.style.marginRight;
-		parent = Number(parent.substr(0, parent.length - 2)) + 20;
-		target.style.marginLeft = parent + "px";
-		var tmp = id.split("_");
-		for(i=0;i<tmp.length;i++) {
-			obj = obj[tmp[i]];
-		}
-	}
-	else {
-		id = '';
-	}
-	if(typeof(obj) != 'object') {
-		var dd = document.createElement("div");
-		dd.innerText = obj;
-		target.appendChild(dd);
-	}
-	else {
-		for(var name in obj) {
-			var node = createNode(id, name, obj[name]);
-			target.appendChild(node);
-		}
-	}
 }
 function createNode(id, name, value) {
 	var dd = document.createElement("div");
@@ -51,7 +24,7 @@ function createNode(id, name, value) {
 	valueNode.className = "value";
 
 	if(typeof(value) == "string") {
-		valueNode.innerText = '"'+value+'"';
+		valueNode.innerText = '"'+encodeURIComponent(value)+'"';
 		valueNode.className += " valueString";
 	}
 	else if(typeof(value) == "number") {
@@ -91,11 +64,40 @@ function createNode(id, name, value) {
 	return dd;
 }
 
-function getJson(node, obj) {
+function tree(id, flag) {
+	var target = document.createElement("div");
+	target.id = id+"_child";
+	document.getElementById(id).appendChild(target);
+	if(id != flag) {
+		var parent = document.getElementById(id).parentNode.style.marginRight;
+		parent = Number(parent.substr(0, parent.length - 2)) + 20;
+		target.style.marginLeft = parent + "px";
+		var tmp = id.split("_");
+		obj = objLists;
+		for(i=0;i<tmp.length;i++) {
+			obj = obj[tmp[i]];
+		}
+	}
+	else {
+		id = flag;
+		obj = objLists[flag];
+	}
+	if(typeof(obj) != 'object') {
+		var dd = document.createElement("div");
+		dd.innerText = obj;
+		target.appendChild(dd);
+	}
+	else {
+		for(var name in obj) {
+			var node = createNode(id, name, obj[name]);
+			target.appendChild(node);
+		}
+	}
+}
+
+function getJson(node, obj, flag) {
 	node.innerHTML = '';
-	var dd = document.createElement("div");
-	dd.id = "root";
-	node.appendChild(dd);
+	objLists[flag] = obj;
 	node.addEventListener("click", function(rr){
 		var name = rr.toElement.getAttribute("loc");
 		if(name == null) {
@@ -110,7 +112,7 @@ function getJson(node, obj) {
 		else {
 			var child = document.getElementById(name+"_child");
 			if(child == null) {
-				tree(obj, name);
+				tree(name, flag);
 			}
 			else {
 				child.style.display = "block";
@@ -118,5 +120,5 @@ function getJson(node, obj) {
 			document.getElementById(name+"_pic").className = "rOpen";
 		}
 	},false);
-	tree(obj, "root");
+	tree(flag, flag);
 }

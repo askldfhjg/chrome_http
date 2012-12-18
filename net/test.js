@@ -25,20 +25,20 @@ chrome.devtools.network.onRequestFinished.addListener(function(request) {
 		up.style.cursor = "pointer";
 		up.id=count;
 		var div = document.createElement("div");
-		div.id = "div_"+count;
+		div.id = "div-"+count;
 		up.addEventListener("click",function(rr){
 			var id = Number(rr.target.id);
 			if(id == NaN) return;
 			var content = document.getElementById("detail_"+id).innerText;
-			getJson(document.getElementById("div_"+id), JSON.parse(content));
-			chrome.experimental.devtools.console.addMessage(chrome.experimental.devtools.console.Severity.Warning, document.documentElement.innerHTML);
+			var divv = document.getElementById("div-"+id);
+			getJson(divv, JSON.parse(content)["data"], divv.id);
+			//chrome.experimental.devtools.console.addMessage(chrome.experimental.devtools.console.Severity.Warning, "div-"+id);
+			body.scrollTop = body.scrollHeight;
 		},false);
 		count++;
 		main.appendChild(up);
 		main.appendChild(div);
-		aal("1");
 		body.appendChild(main);
-		aal("2");
 	    request.getContent(function(content, send){
 	    	var main = document.getElementById("main_"+count2);
 			var dd = document.createElement("div");
@@ -57,4 +57,8 @@ chrome.devtools.network.onRequestFinished.addListener(function(request) {
 function aal(o) {
 	chrome.experimental.devtools.console.addMessage(chrome.experimental.devtools.console.Severity.Warning, o);
 }
+
+document.getElementById("button").addEventListener("click", function(rr){
+	chrome.experimental.devtools.console.addMessage(chrome.experimental.devtools.console.Severity.Warning, document.documentElement.innerHTML);
+});
 

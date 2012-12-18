@@ -46,6 +46,7 @@
 	border-width: 6px 6px 6px 9px;
 	border-style:solid;
 	cursor: pointer;
+	margin-right: 3px;
 }
 .rNone {
 	border-color: transparent transparent transparent transparent;
