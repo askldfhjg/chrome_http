@@ -11,11 +11,11 @@ function createNode(id, name, value) {
 		dd.id = name;
 	}
 	else {
-		dd.id = id +"_"+name;
+		dd.id = id +"|"+name;
 	}
 
 	var pic = document.createElement("div");
-	pic.id = dd.id +"_pic";
+	pic.id = dd.id +"|pic";
 	pic.className = "rNone";
 	var nameNode = document.createElement("span");
 	nameNode.innerText = name+": ";
@@ -66,13 +66,13 @@ function createNode(id, name, value) {
 
 function tree(id, flag) {
 	var target = document.createElement("div");
-	target.id = id+"_child";
+	target.id = id+"|child";
 	document.getElementById(id).appendChild(target);
 	if(id != flag) {
 		var parent = document.getElementById(id).parentNode.style.marginRight;
 		parent = Number(parent.substr(0, parent.length - 2)) + 20;
 		target.style.marginLeft = parent + "px";
-		var tmp = id.split("_");
+		var tmp = id.split("|");
 		obj = objLists;
 		for(i=0;i<tmp.length;i++) {
 			obj = obj[tmp[i]];
@@ -103,21 +103,21 @@ function getJson(node, obj, flag) {
 		if(name == null) {
 			return false;
 		}
-		var child = document.getElementById(name+"_child");
+		var child = document.getElementById(name+"|child");
 		var t = document.getElementById(name);
 		if(t.childNodes.length >3 && child != null && child.style.display != "none") {
 			child.style.display = "none";
-			document.getElementById(name+"_pic").className = "rClose";
+			document.getElementById(name+"|pic").className = "rClose";
 		}
 		else {
-			var child = document.getElementById(name+"_child");
+			var child = document.getElementById(name+"|child");
 			if(child == null) {
 				tree(name, flag);
 			}
 			else {
 				child.style.display = "block";
 			}
-			document.getElementById(name+"_pic").className = "rOpen";
+			document.getElementById(name+"|pic").className = "rOpen";
 		}
 	},false);
 	tree(flag, flag);

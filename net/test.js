@@ -31,9 +31,19 @@ chrome.devtools.network.onRequestFinished.addListener(function(request) {
 			if(id == NaN) return;
 			var content = document.getElementById("detail_"+id).innerText;
 			var divv = document.getElementById("div-"+id);
-			getJson(divv, JSON.parse(content)["data"], divv.id);
-			//chrome.experimental.devtools.console.addMessage(chrome.experimental.devtools.console.Severity.Warning, "div-"+id);
-			body.scrollTop = body.scrollHeight;
+			if(divv.style.display != "none" && divv.childNodes.length > 0) {
+				divv.style.display = "none";
+			}
+			else {
+				if(divv.childNodes.length > 0) {
+					divv.style.display = "block";
+				}
+				else {
+					getJson(divv, JSON.parse(content)["data"], divv.id);
+					//chrome.experimental.devtools.console.addMessage(chrome.experimental.devtools.console.Severity.Warning, "div-"+id);
+					body.scrollTop = body.scrollHeight;
+				}
+			}
 		},false);
 		count++;
 		main.appendChild(up);
